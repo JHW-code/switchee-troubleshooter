@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>History & Metadata</title>
+  <!-- PWA: Manifest & Theme -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="leaf.png">
+
+  <!-- PWA: Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(reg => console.log('SW registered', reg))
+          .catch(err => console.error('SW registration failed', err));
+      });
+    }
+  </script>
+
+  <link href="global.css" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <img src="leaf.png" class="site-logo" alt="Leaf">
+    <h1 class="site-title">History & Metadata</h1>
+  </header>
+  <main class="container">
+    <h2>Situation Pages</h2>
+    <table>
+      <thead><tr><th>File</th><th>Title</th><th>Last Modified</th><th>Author</th></tr></thead>
+      <tbody>
+        <tr><td>situation1.html</td><td>Heating not working</td><td>2025-04-27</td><td>Admin</td></tr>
+      </tbody>
+    </table>
+  </main>
+<footer class="footer-menu">
+  <a href="builder.html">🛠️ Manage Situations</a>
+  <a href="history.html">📜 History</a>
+  <a href="mobile/index.html">📱 Mobile Issues</a>
+  <a href="econa/index.html">⚙️ Econa</a>
+</footer>
+</body>
+</html>

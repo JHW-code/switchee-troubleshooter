@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="global.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Situation 4.1: Frozen Screen (240v Mains Powered) (Luxury)</title>
+  <!-- PWA: Manifest & Theme -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="leaf.png">
+
+  <!-- PWA: Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(reg => console.log('SW registered', reg))
+          .catch(err => console.error('SW registration failed', err));
+      });
+    }
+  </script>
+
+  
+</head>
+<body>
+
+  <!-- LEAF HEADER -->
+  <header class="site-header">
+    <img src="leaf.png" alt="Leaf Logo" class="site-logo">
+    <h1 class="site-title">⚡ Situation 4.1: Frozen Screen (240v Mains Powered)</h1>
+  </header>
+  <!-- /LEAF HEADER -->
+
+  <div class="back-menu"><a href="index.html">&larr; Back to Main Menu</a></div>
+  <div class="flow">
+    <a href="#section1">Switch off and on at plug socket</a>
+    <a href="#section2">Can thermostat change temperature?</a>
+    <a href="#section3">Is BRU red light ON above radiator?</a>
+    <a href="#section4">Resident can't reset thermostat</a>
+    <a href="#section5">Check if heating comes ON manually</a>
+    <a href="#section6">Resident uses override button if urgent</a>
+    <a href="#section7">Call Switchee for hardware replacement</a>
+  </div>
+  <section id="section1"><h2>1. Switch off and on at plug socket</h2><p>Ask resident to turn OFF Switchee at wall plug, wait a minute, and turn it back ON.</p></section>
+  <section id="section2"><h2>2. Can thermostat change temperature?</h2><p>Test if the resident can turn up the thermostat temperature manually.</p></section>
+  <section id="section3"><h2>3. Is BRU red light ON above radiator?</h2><p>Check if the BRU red light above the radiator symbol turns ON, confirming heating is being called for.</p></section>
+  <section id="section4"><h2>4. Resident can't reset thermostat</h2><p>Guide them to call Switchee support immediately if they cannot control the screen.</p></section>
+  <section id="section5"><h2>5. Check if heating comes ON manually</h2><p>Instruct to use override button on the BRU to turn heating/hot water manually ON if needed.</p></section>
+  <section id="section6"><h2>6. Resident uses override button if urgent</h2><p>Advise keeping heating ON with override until Switchee can arrange a repair/replacement.</p></section>
+  <section id="section7"><h2>7. Call Switchee for hardware replacement</h2><p>Resident should contact Switchee immediately if thermostat remains frozen/unresponsive after reset.</p></section>
+  <div class="back-menu"><a href="index.html">&larr; Back to Main Menu</a></div>
+
+</body>
+</html>

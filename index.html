@@ -1,1 +1,55 @@
-<!DOCTYPE html><html><head><title>Switchee Troubleshooter</title><link rel="manifest" href="manifest.json"></head><body><h1>Welcome to Switchee Troubleshooter</h1><ul><li><a href="gen2/index.html">Gen2</a></li><li><a href="econa/builder.html">Econa</a></li><li><a href="mobile/builder.html">Mobile</a></li><li><a href="history/history.html">History</a></li></ul><script src="service-worker.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="global.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Switchee Troubleshooting - Main Menu (Luxury)</title>
+  <!-- PWA: Manifest & Theme -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="leaf.png">
+
+  <!-- PWA: Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(reg => console.log('SW registered', reg))
+          .catch(err => console.error('SW registration failed', err));
+      });
+    }
+  </script>
+
+  
+</head>
+<body>
+
+  <!-- LEAF HEADER -->
+  <header class="site-header">
+    <img src="leaf.png" alt="Leaf Logo" class="site-logo">
+    <h1 class="site-title">Switchee Troubleshooting</h1>
+  </header>
+  <!-- /LEAF HEADER -->
+
+  <h1>Switchee Troubleshooting - Main Menu</h1>
+
+  <div class="menu">
+    <a href="situation1.html">🔥 Situation 1: Heating not working</a>
+    <a href="situation2.html">💧 Situation 2: Hot water not working</a>
+    <a href="situation3.html">💧 Situation 3: Hot water not reaching desired temperature</a>
+    <a href="situation4-1.html">⚡ Situation 4.1: Frozen screen (240v mains powered)</a>
+    <a href="situation4-2.html">⚡ Situation 4.2: Frozen screen (hard-wired powered)</a>
+    <a href="situation5.html">🔥 Situation 5: Heating coming on without asking</a>
+    <a href="situation6.html">💧 Situation 6: Hot water coming on without asking</a>
+	<a href="test.html">Test</a>
+  </div>
+
+  <footer class="footer-menu">
+  <a href="builder.html">🛠️ Manage Situations</a>
+  <a href="history.html">📜 History</a>
+  <a href="mobile/index.html">📱 Mobile Issues</a>
+  <a href="econa/index.html">⚙️ Econa</a>
+</footer>
+
+</body>
+</html>

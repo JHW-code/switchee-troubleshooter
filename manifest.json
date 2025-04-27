@@ -1,1 +1,21 @@
-{"name": "Switchee Troubleshooter","short_name": "Switchee","start_url": "/index.html","display": "standalone","background_color": "#ffffff","theme_color": "#ffffff","icons": [{"src": "/assets/icons/leaf-192.png","sizes": "192x192","type": "image/png"},{"src": "/assets/icons/leaf-512.png","sizes": "512x512","type": "image/png"}]}
+{
+  "name": "Switchee Troubleshooter",
+  "short_name": "Troubleshooter",
+  "description": "Interactive troubleshooting builder for Gen2, Econa, Mobile App with history.",
+  "icons": [
+    {
+      "src": "leaf.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "leaf.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "/index.html",
+  "display": "standalone",
+  "theme_color": "#ffffff",
+  "background_color": "#f0f0f0"
+}

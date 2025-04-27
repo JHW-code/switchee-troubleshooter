@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="global.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Situation 3: Hot Water Not Reaching Desired Temperature (Luxury)</title>
+  <!-- PWA: Manifest & Theme -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="leaf.png">
+
+  <!-- PWA: Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(reg => console.log('SW registered', reg))
+          .catch(err => console.error('SW registration failed', err));
+      });
+    }
+  </script>
+
+  
+</head>
+<body>
+
+  <!-- LEAF HEADER -->
+  <header class="site-header">
+    <img src="leaf.png" alt="Leaf Logo" class="site-logo">
+    <h1 class="site-title">💧 Situation 3: Hot Water Not Reaching Desired Temperature</h1>
+  </header>
+  <!-- /LEAF HEADER -->
+
+  <div class="back-menu"><a href="index.html">&larr; Back to Main Menu</a></div>
+  <div class="flow">
+    <a href="#section1">Is the hot water ON and BRU light ON?</a>
+    <a href="#section2">Is a timer incorrectly set?</a>
+    <a href="#section3">Are there any boiler error codes?</a>
+    <a href="#section4">Reset Switchee and boiler system</a>
+    <a href="#section5">Check boiler temperature dials</a>
+    <a href="#section6">Organize engineer visit if issues remain</a>
+  </div>
+  <section id="section1"><h2>1. Is the hot water ON and BRU light ON?</h2><p>Ask the resident to check that the hot water is ON at the thermostat and that the red light above the water droplet on the BRU is ON.</p></section>
+  <section id="section2"><h2>2. Is a timer incorrectly set?</h2><p>If a timer has been set up, Switchee may need to adjust the hot water timings. Contact Switchee if necessary.</p></section>
+  <section id="section3"><h2>3. Are there any boiler error codes?</h2><p>Ask the resident to look for error codes like F1, F22. If present, arrange for boiler servicing.</p></section>
+  <section id="section4"><h2>4. Reset Switchee and boiler system</h2><p>Advise power cycling the thermostat and boiler isolator switch to reset the system.</p></section>
+  <section id="section5"><h2>5. Check boiler temperature dials</h2><p>Ask the resident to check and adjust the boiler’s hot water temperature dial if possible.</p></section>
+  <section id="section6"><h2>6. Organize engineer visit if issues remain</h2><p>Arrange a repairs team visit if the resident cannot adjust settings or problems persist.</p></section>
+  <div class="back-menu"><a href="index.html">&larr; Back to Main Menu</a></div>
+
+</body>
+</html>

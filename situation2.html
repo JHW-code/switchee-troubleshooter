@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="global.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Situation 2: Hot Water Not Working (Luxury)</title>
+  <!-- PWA: Manifest & Theme -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="leaf.png">
+
+  <!-- PWA: Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(reg => console.log('SW registered', reg))
+          .catch(err => console.error('SW registration failed', err));
+      });
+    }
+  </script>
+
+  
+</head>
+<body>
+
+  <!-- LEAF HEADER -->
+  <header class="site-header">
+    <img src="leaf.png" alt="Leaf Logo" class="site-logo">
+    <h1 class="site-title">💧 Situation 2: Hot Water Not Working</h1>
+  </header>
+  <!-- /LEAF HEADER -->
+
+  <div class="back-menu"><a href="index.html">&larr; Back to Main Menu</a></div>
+  <div class="flow">
+    <a href="#section1">Can the resident select hot water ON at thermostat?</a>
+    <a href="#section2">Is BRU light above hot water symbol ON?</a>
+    <a href="#section3">Is the hot water tap getting warm?</a>
+    <a href="#section4">Use red override button to control hot water</a>
+    <a href="#section5">Reset Switchee system if necessary</a>
+    <a href="#section6">Organize housing association repair visit if still unresolved</a>
+  </div>
+  <section id="section1"><h2>1. Can the resident select hot water ON at thermostat?</h2><p>Ask the resident to press the hot water symbol on the Switchee thermostat and confirm “Hot Water ON” appears.</p></section>
+  <section id="section2"><h2>2. Is BRU light above hot water symbol ON?</h2><p>Check if the red light above the water droplet symbol on the BRU is illuminated, indicating communication is OK.</p></section>
+  <section id="section3"><h2>3. Is the hot water tap getting warm?</h2><p>If yes, Switchee system is working correctly. If not, continue troubleshooting.</p></section>
+  <section id="section4"><h2>4. Use red override button to control hot water</h2><p>If the thermostat is not controlling the hot water, ask the resident to use the red override button on the BRU.</p></section>
+  <section id="section5"><h2>5. Reset Switchee system if necessary</h2><p>Advise a reset: turn off at the mains or boiler isolator for a minute, then turn back on.</p></section>
+  <section id="section6"><h2>6. Organize housing association repair visit if still unresolved</h2><p>Book engineer if issues persist after reset, or if override button doesn’t work.</p></section>
+  <div class="back-menu"><a href="index.html">&larr; Back to Main Menu</a></div>
+
+</body>
+</html>

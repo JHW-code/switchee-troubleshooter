@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="global.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Situation 4.2: Frozen Screen (Hard-Wired Powered) (Luxury)</title>
+  <!-- PWA: Manifest & Theme -->
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="icon" href="leaf.png">
+
+  <!-- PWA: Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(reg => console.log('SW registered', reg))
+          .catch(err => console.error('SW registration failed', err));
+      });
+    }
+  </script>
+
+  
+</head>
+<body>
+
+  <!-- LEAF HEADER -->
+  <header class="site-header">
+    <img src="leaf.png" alt="Leaf Logo" class="site-logo">
+    <h1 class="site-title">⚡ Situation 4.2: Frozen Screen (Hard-Wired Powered)</h1>
+  </header>
+  <!-- /LEAF HEADER -->
+
+  <div class="back-menu"><a href="index.html">&larr; Back to Main Menu</a></div>
+  <div class="flow">
+    <a href="#section1">Find and turn OFF boiler isolator switch</a>
+    <a href="#section2">Does the thermostat restart?</a>
+    <a href="#section3">If resident cannot find isolator switch</a>
+    <a href="#section4">Can heating come ON manually?</a>
+    <a href="#section5">Call Switchee if unresolved</a>
+  </div>
+  <section id="section1"><h2>1. Find and turn OFF boiler isolator switch</h2><p>Guide the resident to find and turn OFF the boiler isolator switch for one minute before switching back ON.</p></section>
+  <section id="section2"><h2>2. Does the thermostat restart?</h2><p>If yes, check if heating can be controlled. If no, continue troubleshooting.</p></section>
+  <section id="section3"><h2>3. If resident cannot find isolator switch</h2><p>Book a repairs visit to assist with power cycling the Switchee and boiler.</p></section>
+  <section id="section4"><h2>4. Can heating come ON manually?</h2><p>Use the red override button on the BRU if needed for heating/hot water while waiting for repairs.</p></section>
+  <section id="section5"><h2>5. Call Switchee if unresolved</h2><p>Resident or engineer should call Switchee to troubleshoot firmware or arrange thermostat replacement.</p></section>
+  <div class="back-menu"><a href="index.html">&larr; Back to Main Menu</a></div>
+
+</body>
+</html>
