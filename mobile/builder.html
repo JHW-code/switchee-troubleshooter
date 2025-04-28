@@ -196,14 +196,24 @@
 
       // build HTML with images
       async function buildHTML() {
+        const builderDir = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
         const title = document.getElementById('title').value || 'New Situation';
         let html = `<!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><title>${title}</title>
-<link href="../global.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"></head><body>
-<header class="site-header"><img src="../leaf.png" class="site-logo"><h1 class="site-title">${title}</h1></header>
-<div class="back-menu"><a href="index.html">← Back to Mobile Menu</a></div>
-<div class="flow">`;
+<html lang="en">
+<head>
+  <base href="${builderDir}">
+  <meta charset="UTF-8">
+  <title>${title}</title>
+  <link href="../global.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="site-header">
+    <img src="../leaf.png" class="site-logo">
+    <h1 class="site-title">${title}</h1>
+  </header>
+  <div class="back-menu"><a href="index.html">← Back to Mobile Menu</a></div>
+  <div class="flow">`;
         for (let i=1;i<=5;i++){
           const txt = document.getElementById(`step${i}`).value || `Step ${i}`;
           html += `<a href="#section${i}">${txt}</a>`;
