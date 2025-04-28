@@ -202,12 +202,12 @@
       };
 
       async function buildHTML(){
-        const maxSteps = 5; // change to add more steps
-const builderDir = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
+        const builderDir = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
         const title = document.getElementById('title').value || 'New Situation';
         let html = `<!DOCTYPE html>
 <html lang="en">
 <head>
+  <base href="${builderDir}">
   <meta charset="UTF-8">
   <title>${title}</title>
   <link href="../global.css" rel="stylesheet">
@@ -220,31 +220,25 @@ const builderDir = window.location.href.substring(0, window.location.href.lastIn
   </header>
   <div class="back-menu"><a href="index.html">← Back to Econa Menu</a></div>
   <div class="flow">`;
-        for(let i=1;i<=maxSteps;i++){
-        const txt = document.getElementById(`step${i}`).value.trim();
-        const detail = document.getElementById(`detail${i}`).value.trim();
-        const input = document.getElementById(`img${i}`);
-        if (!txt && !detail && !input.files.length) continue;
-        const label = txt || `Step ${i}`;
-        html += `<a href="#section${i}">${label}</a>`;
-      }
-        html += `</div>`;
-        for(let i=1;i<=maxSteps;i++){
-        const txt = document.getElementById(`step${i}`).value.trim();
-        const detail = document.getElementById(`detail${i}`).value.trim();
-        const input = document.getElementById(`img${i}`);
-        if (!txt && !detail && !input.files.length) continue;
-        html += `<section id="section${i}"><h2>${txt || 'Step ' + i}</h2><p>${detail}</p>`;
-        if(input.files.length){
-          const dataURL = await new Promise(res=>{
-            const r = new FileReader();
-            r.onload = e => res(e.target.result);
-            r.readAsDataURL(input.files[0]);
-          });
-          html += `<img src="${dataURL}" class="step-image" alt="Step ${i}">`;
+        for(let i=1;i<=5;i++){
+          const txt = document.getElementById(`step${i}`).value || `Step ${i}`;
+          html += `<a href="#section${i}">${txt}</a>`;
         }
-        html += `</section>`;
-      }
+        html += `</div>`;
+        for(let i=1;i<=5;i++){
+          const detail = document.getElementById(`detail${i}`).value || '';
+          html += `<section id="section${i}"><h2>Step ${i}</h2><p>${detail}</p>`;
+          const input = document.getElementById(`img${i}`);
+          if(input.files.length){
+            const dataURL = await new Promise(res=>{
+              const r = new FileReader();
+              r.onload = e => res(e.target.result);
+              r.readAsDataURL(input.files[0]);
+            });
+            html += `<img src="${dataURL}" class="step-image" alt="Step ${i}">`;
+          }
+          html += `</section>`;
+        }
         html += `<footer class="footer-menu">
   <a href="builder.html">🛠️ Manage Econa Situations</a>
   <a href="../index.html">Gen2</a>
