@@ -56,18 +56,22 @@
 </footer>
 
    <!-- /Mobile toolbar -->
-  <nav class="app-toolbar">
-  <a href="../index.html" class="tool-btn">
-    <!-- optional icon: replace with your own SVG or emoji -->
-    🏠<span>Gen2</span>
+<nav class="app-toolbar">
+  <a href="../index.html" class="tool-btn {% if page=='gen2' %}active{% endif %}">
+    <!-- replace these SVGs with your own or use emojis -->
+    <svg class="icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+    <span>Gen2</span>
   </a>
-  <a href="index.html" class="tool-btn">
-    ❄️<span>Econa</span>
+  <a href="index.html" class="tool-btn {% if page=='econa' %}active{% endif %}">
+    <svg class="icon" viewBox="0 0 24 24"><path d="M12 2l-5.5 9h11z"/><circle cx="17.5" cy="17.5" r="4.5"/><path d="M3 13.5h8v8H3z"/></svg>
+    <span>Econa</span>
   </a>
-  <a href="../mobile/index.html" class="tool-btn">
-    📱<span>Mobile</span>
+  <a href="../mobile/index.html" class="tool-btn {% if page=='mobile' %}active{% endif %}">
+    <svg class="icon" viewBox="0 0 24 24"><path d="M17 1H7c-1.1 0-2 .9-2 2v18c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V3c0-1.1-.9-2-2-2zm0 18H7V5h10v14z"/></svg>
+    <span>Mobile</span>
   </a>
 </nav>
+
 
 </body>
 </html>
