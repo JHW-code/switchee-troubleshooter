@@ -154,9 +154,3 @@ section { background:#fff; padding:20px; border-radius:10px; box-shadow:0 4px 8p
     display: none !important;
   }
 }
-
-
-/* Hide old footer on mobile */
-@media (max-width: 768px) {
-  .footer-menu { display: none !important; }
-}
