@@ -31,7 +31,7 @@ section { background:#fff; padding:20px; border-radius:10px; box-shadow:0 4px 8p
   position: absolute;
   top: 10px;       /* distance from top of header */
   right: 10px;     /* distance from right edge */
-  width: 80px;     /* adjust this to scale your image */
+  width: 90px;     /* adjust this to scale your image */
   height: auto;    /* preserve aspect ratio */
   pointer-events: none; /* so it won’t intercept clicks */
 }
