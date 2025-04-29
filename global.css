@@ -28,3 +28,48 @@ section { background:#fff; padding:20px; border-radius:10px; box-shadow:0 4px 8p
   width: 80px;
   height: auto;
 }
+
+
+/* 1. Only apply on small/medium screens */
+@media (max-width: 768px) {
+  /* 2. Make header stick to top */
+  .site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    /* optional styling for app-like feel */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    background: var(--leaf-white);
+    padding: 0.5rem 1rem;
+  }
+
+  /* 3. Push page content below header */
+  body {
+    padding-top: calc(2.5rem + 1rem); /* header height + extra */
+    padding-bottom: calc(2.5rem + 1rem); /* footer height + extra */
+  }
+
+  /* 4. Make footer stick to bottom */
+  .footer-menu {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-around;
+    background: var(--leaf-white);
+    padding: 0.5rem 0;
+    box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+  }
+
+  /* 5. Ensure links in footer look tappable */
+  .footer-menu a {
+    flex: 1;
+    text-align: center;
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+}
