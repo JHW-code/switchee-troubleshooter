@@ -133,3 +133,18 @@ section { background:#fff; padding:20px; border-radius:10px; box-shadow:0 4px 8p
   }
 }
 
+@media (max-width: 768px) {
+  .site-header {
+    background-color: #ffffff;    /* solid white */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: fixed;              /* keep it on top */
+    top: 0; left: 0; right: 0;
+    z-index: 1001;                /* above slides/images */
+  }
+
+  /* ensure your page content clears the fixed header */
+  body {
+    padding-top: 56px;            /* match header height */
+  }
+}
+
