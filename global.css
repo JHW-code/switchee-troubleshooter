@@ -29,7 +29,7 @@ section { background:#fff; padding:20px; border-radius:10px; box-shadow:0 4px 8p
 /* Style & position the device pic */
 .device-image {
   position: absolute;
-  top: 10px;       /* distance from top of header */
+  top: 0px;       /* distance from top of header */
   right: 10px;     /* distance from right edge */
   width: 150px;     /* adjust this to scale your image */
   height: auto;    /* preserve aspect ratio */
