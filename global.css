@@ -73,3 +73,63 @@ section { background:#fff; padding:20px; border-radius:10px; box-shadow:0 4px 8p
     font-size: 0.9rem;
   }
 }
+
+/* — bottom “app bar” for mobile/tablet — */
+@media (max-width: 768px) {
+  .app-toolbar {
+    position: fixed;
+    bottom: 0;
+    left: 0; right: 0;
+    height: 56px;                              /* classic Material bar height */
+    padding-bottom: env(safe-area-inset-bottom); /* iOS notch support */
+    background-color: #ffffff;                 /* white background */
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15); /* subtle elevation */
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  .app-toolbar .tool-btn {
+    flex: 1;
+    text-align: center;
+    text-decoration: none;
+    font-size: 11px;
+    color: #666666;                            /* inactive color */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: color 150ms;
+  }
+
+  .app-toolbar .tool-btn .icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 4px;
+    fill: #666666;                             /* match text */
+    transition: fill 150ms;
+  }
+
+  .app-toolbar .tool-btn.active,
+  .app-toolbar .tool-btn:hover {
+    color: var(--leaf-green, #2A8FBD);         /* your brand accent */
+  }
+  .app-toolbar .tool-btn.active .icon,
+  .app-toolbar .tool-btn:hover .icon {
+    fill: var(--leaf-green, #2A8FBD);
+  }
+
+  /* ensure page content sits above the toolbar */
+  body {
+    padding-bottom: calc(56px + env(safe-area-inset-bottom));
+  }
+}
+
+/* hide on desktop */
+@media (min-width: 769px) {
+  .app-toolbar {
+    display: none;
+  }
+}
+
