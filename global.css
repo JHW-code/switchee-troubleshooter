@@ -159,3 +159,17 @@ section { background:#fff; padding:20px; border-radius:10px; box-shadow:0 4px 8p
 @media (max-width: 768px) {
   .footer-menu { display: none !important; }
 }
+
+/* Mobile toolbar top and bottom */
+@media (max-width: 768px) {
+  .footer-menu { display: none !important; }
+  .app-toolbar { position: fixed; left: 0; right: 0; height: 56px; padding-bottom: env(safe-area-inset-bottom); background-color: #ffffff; box-shadow: 0 -2px 8px rgba(0,0,0,0.15); display: flex; justify-content: space-around; align-items: center; z-index: 1000; }
+  .app-toolbar.top { top: 0; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  .app-toolbar.bottom { bottom: 0; }
+  .app-toolbar .tool-btn { flex: 1; text-align: center; text-decoration: none; font-size: 11px; color: #666666; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: color 150ms; }
+  .app-toolbar .tool-btn.active, .app-toolbar .tool-btn:hover { color: var(--leaf-green, #2A8FBD); }
+  body { padding-top: 56px; padding-bottom: calc(56px + env(safe-area-inset-bottom)); }
+}
+@media (min-width: 769px) {
+  .app-toolbar { display: none !important; }
+}

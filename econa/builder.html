@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Econa Troubleshooting Builder</title>
   <!-- PWA: Manifest & Theme -->
   <link rel="manifest" href="../manifest.json">
@@ -81,6 +82,12 @@
   </style>
 </head>
 <body>
+
+<nav class="app-toolbar top">
+  <a href="../index.html" class="tool-btn">🏠<span>Gen2</span></a>
+  <a href="index.html" class="tool-btn active">❄️<span>Econa</span></a>
+  <a href="../mobile/index.html" class="tool-btn">📱<span>Mobile</span></a>
+</nav>
 
   <header class="site-header">
     <img src="${builderDir}../leaf.png" alt="Leaf Logo" class="site-logo">
@@ -197,6 +204,7 @@
         let html = `<!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${title}</title>
   <link href="${builderDir}../global.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -232,7 +240,13 @@
   <a href="../index.html">Gen2</a>
   <a href="../history.html">📜 History</a>
   <a href="../mobile/index.html">📱 Mobile Issues</a>
-</footer></body></html>`;
+</footer>
+<nav class="app-toolbar bottom">
+  <a href="../index.html" class="tool-btn">🏠<span>Gen2</span></a>
+  <a href="index.html" class="tool-btn active">❄️<span>Econa</span></a>
+  <a href="../mobile/index.html" class="tool-btn">📱<span>Mobile</span></a>
+</nav>
+</body></html>`;
         return html;
       }
 
@@ -270,5 +284,11 @@
       };
     })();
   </script>
+
+<nav class="app-toolbar bottom">
+  <a href="../index.html" class="tool-btn">🏠<span>Gen2</span></a>
+  <a href="index.html" class="tool-btn active">❄️<span>Econa</span></a>
+  <a href="../mobile/index.html" class="tool-btn">📱<span>Mobile</span></a>
+</nav>
 </body>
 </html>
