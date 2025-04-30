@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Gen2 Troubleshooting Builder</title>
   <!-- PWA: Manifest & Theme -->
   <link rel="manifest" href="../manifest.json">
@@ -10,15 +9,7 @@
   <link rel="icon" href="leaf.png">
 
   <!-- PWA: Service Worker Registration -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('../service-worker.js')
-          .then(reg => console.log('SW registered', reg))
-          .catch(err => console.error('SW registration failed', err));
-      });
-    }
-  </script>
+  
 
   <link href="../global.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -83,12 +74,6 @@
 </head>
 <body>
 
-<nav class="app-toolbar top">
-  <a href="index.html" class="tool-btn active">🏠<span>Gen2</span></a>
-  <a href="econa/index.html" class="tool-btn">❄️<span>Econa</span></a>
-  <a href="mobile/index.html" class="tool-btn">📱<span>Mobile</span></a>
-</nav>
-
   <header class="site-header">
     <img src="${builderDir}leaf.png" alt="Leaf Logo" class="site-logo">
     <h1 class="site-title">Gen2 Troubleshooting Builder</h1>
@@ -108,7 +93,8 @@
       <label for="title">Situation Title:</label>
       <input id="title" placeholder="e.g., Situation E2: Thermostat offline">
 
-      <div id="steps"></div>
+      <div class="step-controls"><button id="addStepBtn" type="button">+ Add Step</button></div>
+<div id="steps"></div>
 
       <button id="previewBtn">Preview Situation</button>
       <button id="downloadBtn" style="display:none;">Download Situation Page</button>
@@ -139,157 +125,107 @@
    
   </footer>
 
-  <script>
-    // exactly same builder.js logic, but now fetches econa/index.html
-    async function loadPages() {
-      const resp = await fetch('index.html');
-      const doc  = new DOMParser().parseFromString(await resp.text(), 'text/html');
-      const pages = {};
-      doc.querySelectorAll('.menu a').forEach(a=>{
-        pages[a.getAttribute('href')] = a.textContent.trim();
-      });
-      return pages;
+  
+
+<script>
+  // Dynamic Step Builder
+  async function loadPages() {
+    const resp = await fetch('index.html');
+    const doc  = new DOMParser().parseFromString(await resp.text(), 'text/html');
+    const pages = {};
+    doc.querySelectorAll('.menu a').forEach(a => { pages[a.getAttribute('href')] = a.textContent.trim(); });
+    return pages;
+  }
+  (async function(){
+    const pages = await loadPages();
+    const editSelect = document.getElementById('editSelect');
+    const deleteSelect = document.getElementById('deleteSelect');
+    for (const [file, label] of Object.entries(pages)) {
+      editSelect.insertAdjacentHTML('beforeend', `<option value="${file}">${label}</option>`);
+      deleteSelect.insertAdjacentHTML('beforeend', `<option value="${file}">${label}</option>`);
     }
-
-    (async function(){
-      const pages = await loadPages();
-      const editSelect   = document.getElementById('editSelect');
-      const deleteSelect = document.getElementById('deleteSelect');
-      for(const [file,label] of Object.entries(pages)){
-        editSelect.insertAdjacentHTML('beforeend',
-          `<option value="${file}">${label}</option>`);
-        deleteSelect.insertAdjacentHTML('beforeend',
-          `<option value="${file}">${label}</option>`);
-      }
-
-      const stepsContainer = document.getElementById('steps');
-      for(let i=1;i<=5;i++){
+    let stepCount = 5;
+    const stepsContainer = document.getElementById('steps');
+    const addBtn = document.getElementById('addStepBtn');
+    function renderSteps() {
+      stepsContainer.innerHTML = '';
+      for (let i = 1; i <= stepCount; i++) {
         stepsContainer.insertAdjacentHTML('beforeend', `
-          <label for="step${i}">Step ${i}:</label>
-          <input id="step${i}" placeholder="Step ${i} description...">
-          <label for="detail${i}">Detail ${i}:</label>
-          <textarea id="detail${i}" rows="2" placeholder="Detail for step ${i}..."></textarea>
-          <label for="img${i}">Choose Image (optional):</label>
-          <input id="img${i}" type="file" accept="image/*">
+          <div class="step-group">
+            <label for="step${i}">Step ${i}:</label>
+            <input id="step${i}" placeholder="Step ${i} description..." />
+            <label for="detail${i}">Detail ${i}:</label>
+            <textarea id="detail${i}" rows="2" placeholder="Detail for step ${i}..."></textarea>
+            <label for="img${i}">Image (optional):</label>
+            <input id="img${i}" type="file" accept="image/*" />
+          </div>
         `);
       }
-
-      editSelect.onchange = async () => {
-        const file = editSelect.value;
-        if (!file) {
-          document.getElementById('title').value = '';
-          for (let i=1;i<=5;i++){
-            document.getElementById(`step${i}`).value = '';
-            document.getElementById(`detail${i}`).value = '';
-            document.getElementById(`img${i}`).value = '';
-          }
-          return;
-        }
-        const resp = await fetch(file);
-        const doc  = new DOMParser().parseFromString(await resp.text(),'text/html');
-        document.getElementById('title').value =
-          doc.querySelector('h1').textContent.trim();
-        for(let i=1;i<=5;i++){
-          const stepEl   = doc.querySelector(`.flow a[href="#section${i}"]`);
-          const detailEl = doc.querySelector(`#section${i} p`);
-          document.getElementById(`step${i}`).value =
-            stepEl   ? stepEl.textContent.trim()   : '';
-          document.getElementById(`detail${i}`).value =
-            detailEl ? detailEl.textContent.trim() : '';
-        }
-      };
-
-      async function buildHTML(){
-        const builderDir = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
-        const title = document.getElementById('title').value || 'New Situation';
-        let html = `<!DOCTYPE html>
-<html lang="en">
-<head><meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${title}</title>
-  <link href="${builderDir}global.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-</head>
-<body>
-  <header class="site-header">
-    <img src="${builderDir}leaf.png" class="site-logo">
-    <h1 class="site-title">${title}</h1>
-  </header>
-  <div class="back-menu"><a href="index.html">← Back to Econa Menu</a></div>
-  <div class="flow">`;
-        for(let i=1;i<=5;i++){
-          const txt = document.getElementById(`step${i}`).value || `Step ${i}`;
-          html += `<a href="#section${i}">${txt}</a>`;
-        }
-        html += `</div>`;
-        for(let i=1;i<=5;i++){
-          const detail = document.getElementById(`detail${i}`).value || '';
-          html += `<section id="section${i}"><h2>Step ${i}</h2><p>${detail}</p>`;
-          const input = document.getElementById(`img${i}`);
-          if(input.files.length){
-            const dataURL = await new Promise(res=>{
-              const r = new FileReader();
-              r.onload = e => res(e.target.result);
-              r.readAsDataURL(input.files[0]);
-            });
-            html += `<img src="${dataURL}" class="step-image" alt="Step ${i}">`;
-          }
-          html += `</section>`;
-        }
-        html += `<footer class="footer-menu">
-  <a href="index.html">Gen2</a>
-    <a href="/econa/index.html">🛠️Econa</a>
-    <a href="/mobile/index.html">📱 Mobile Issues</a>
-    <a href="history.html">📜 History</a>
-</footer>
-<nav class="app-toolbar bottom">
-  <a href="index.html" class="tool-btn active">🏠<span>Gen2</span></a>
-  <a href="econa/index.html" class="tool-btn">❄️<span>Econa</span></a>
-  <a href="mobile/index.html" class="tool-btn">📱<span>Mobile</span></a>
-</nav>
-</body></html>`;
-        return html;
+    }
+    addBtn.addEventListener('click', () => { stepCount++; renderSteps(); });
+    renderSteps();
+    editSelect.onchange = async () => {
+      const file = editSelect.value;
+      if (!file) return;
+      const resp = await fetch(file);
+      const doc  = new DOMParser().parseFromString(await resp.text(), 'text/html');
+      document.getElementById('title').value = doc.querySelector('h1').textContent.trim();
+      const sections = [...doc.querySelectorAll('section[id]')];
+      stepCount = sections.length;
+      renderSteps();
+      sections.forEach((sec, idx) => {
+        const i = idx+1;
+        document.getElementById(`step${i}`).value = sec.querySelector('h2').textContent.trim();
+        document.getElementById(`detail${i}`).value = sec.querySelector('p').textContent.trim();
+      });
+    };
+    async function buildHTML(){
+      const builderDir = window.location.href.replace(/[^\/]+$/, '');
+      const title = document.getElementById('title').value || 'New Situation';
+      let html = `<!DOCTYPE html><html lang="en"><head><base href="${builderDir}"><meta charset="UTF-8"><title>${title}</title><link href="../global.css" rel="stylesheet"></head><body><header class="site-header"><img src="../leaf.png" class="site-logo"><h1 class="site-title">${title}</h1></header><div class="back-menu"><a href="index.html">← Back to Menu</a></div><div class="flow">`;
+      for (let i=1; i<=stepCount; i++){
+        const txt = document.getElementById(`step${i}`).value.trim();
+        const det = document.getElementById(`detail${i}`).value.trim();
+        if (!txt && !det) continue;
+        html += `<a href="#section${i}">${txt||`Step ${i}`}</a>`;
       }
-
-      document.getElementById('previewBtn').onclick = async ()=>{
-        const content = await buildHTML();
-        const blob    = new Blob([content],{type:'text/html'});
-        const url     = URL.createObjectURL(blob);
-        document.getElementById('previewFrame').src = url;
-        const dlBtn   = document.getElementById('downloadBtn');
-        dlBtn.style.display = 'inline-block';
-        document.getElementById('linkContainer').style.display = 'none';
-        dlBtn.onclick = () => {
-          const a = document.createElement('a');
-          a.href = url;
-          const filename = (document.getElementById('title').value||'new-situation')
-                             .toLowerCase().replace(/\s+/g,'-') + '.html';
-          a.download = filename;
-          a.click();
-          document.getElementById('linkSnippet').value =
-            `<a href="${filename}">${document.getElementById('title').value}</a>`;
-          document.getElementById('linkContainer').style.display = 'block';
-        };
-      };
-
-      document.getElementById('deleteBtn').onclick = ()=>{
-        const file = document.getElementById('deleteSelect').value;
-        if(!file){
-          document.getElementById('deleteInstructions').textContent =
-            'Please select a situation to delete.';
-          return;
+      html += `</div>`;
+      for (let i=1; i<=stepCount; i++){
+        const txt = document.getElementById(`step${i}`).value.trim();
+        const det = document.getElementById(`detail${i}`).value.trim();
+        if (!txt && !det) continue;
+        html += `<section id="section${i}"><h2>${txt||`Step ${i}`}</h2><p>${det}</p>`;
+        const input = document.getElementById(`img${i}`);
+        if (input.files.length){
+          const dataURL = await new Promise(res=>{
+            const r = new FileReader();
+            r.onload = e => res(e.target.result);
+            r.readAsDataURL(input.files[0]);
+          });
+          html += `<img src="${dataURL}" class="step-image" alt="Step ${i}">`;
         }
-        document.getElementById('deleteInstructions').textContent =
-          `1) Delete "${file}"\n2) Remove this line from index.html:\n`+
-          `<li><a href="${file}">${file}</a></li>`;
+        html += `</section>`;
+      }
+      html += `<footer class="footer-menu"><a href="builder.html">🛠️ Manage Situations</a></footer></body></html>`;
+      return html;
+    }
+    document.getElementById('previewBtn').onclick = async ()=>{
+      const content = await buildHTML();
+      const blob = new Blob([content],{type:'text/html'});
+      const url = URL.createObjectURL(blob);
+      document.getElementById('previewFrame').src = url;
+      const dlBtn = document.getElementById('downloadBtn');
+      dlBtn.style.display = 'inline-block';
+      dlBtn.onclick = ()=>{
+        const a = document.createElement('a');
+        a.href = url;
+        const filename = (document.getElementById('title').value||'new-situation').toLowerCase().replace(/\s+/g,'-')+'.html';
+        a.download = filename; a.click();
       };
-    })();
-  </script>
+    };
+    document.getElementById('deleteBtn').onclick = ()=>{ if(confirm('Delete '+document.getElementById('deleteSelect').value+'?')) location.reload(); };
+  })();
+</script>
 
-<nav class="app-toolbar bottom">
-  <a href="index.html" class="tool-btn active">🏠<span>Gen2</span></a>
-  <a href="econa/index.html" class="tool-btn">❄️<span>Econa</span></a>
-  <a href="mobile/index.html" class="tool-btn">📱<span>Mobile</span></a>
-</nav>
 </body>
 </html>
